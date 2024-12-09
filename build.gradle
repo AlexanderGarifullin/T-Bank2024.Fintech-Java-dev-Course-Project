@@ -50,6 +50,11 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+tasks.test {
+	jvmArgs '-XX:+EnableDynamicAgentLoading'
+	systemProperty "spring.profiles.active", "test"
+}
+
 jacocoTestReport {
 	reports {
 		html.required = true
