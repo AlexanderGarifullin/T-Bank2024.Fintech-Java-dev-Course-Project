@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: T-Bank2024.Fintech-Java-dev-Spring
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_CONTAINER_NAME:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:CodeforcesLocalDB}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:123}
+    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: prod
