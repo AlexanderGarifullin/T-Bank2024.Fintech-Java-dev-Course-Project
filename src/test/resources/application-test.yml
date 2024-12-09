@@ -1,0 +1,3 @@
+liquibase:
+  change-log: classpath:db/changelog/db.changelog-test.yaml
+  enabled: true
