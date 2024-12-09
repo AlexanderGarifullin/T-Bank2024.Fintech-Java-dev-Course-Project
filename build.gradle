@@ -39,7 +39,11 @@ dependencies {
 
 	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.testcontainers:junit-jupiter:1.20.1'
+	testImplementation 'org.wiremock:wiremock-standalone:3.9.1'
+	testImplementation 'org.wiremock.integrations.testcontainers:wiremock-testcontainers-module:1.0-alpha-14'
+	testImplementation 'org.testcontainers:postgresql:1.20.3'
+	testImplementation 'org.liquibase:liquibase-core:4.29.2'
 }
 
 tasks.named('test') {
