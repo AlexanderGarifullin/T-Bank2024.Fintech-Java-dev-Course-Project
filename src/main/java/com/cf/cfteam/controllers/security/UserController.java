@@ -23,7 +23,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public JwtAuthenticationResponse login(@RequestBody AuthenticationPayload authenticationPayload) {
+    public JwtAuthenticationResponse login(@RequestBody AuthenticationPayload authenticationPayload,
+                                           Authentication authentication) {
         return authenticationService.login(authenticationPayload);
     }
 
@@ -33,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("change-password")
+    @PutMapping("change-password")
     public ResponseEntity<Void> changePassword(
             @RequestBody ChangePasswordPayload changePasswordRequest,
             Authentication authentication
