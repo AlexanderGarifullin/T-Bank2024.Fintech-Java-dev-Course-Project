@@ -3,8 +3,6 @@ package com.cf.cfteam.models.entities.security;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
-
 @Builder
 @Setter
 @Getter
