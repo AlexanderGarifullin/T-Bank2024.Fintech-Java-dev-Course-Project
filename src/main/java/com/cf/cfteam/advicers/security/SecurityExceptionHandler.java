@@ -5,9 +5,7 @@ import com.cf.cfteam.exceptions.security.TokenRevokedException;
 import com.cf.cfteam.exceptions.security.UserAlreadyRegisterException;
 import com.cf.cfteam.exceptions.security.UserNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -18,19 +16,23 @@ import java.util.Map;
 @ControllerAdvice
 public class SecurityExceptionHandler {
 
+    private static final String LOGIN = "login";
+    private static final String TOKEN = "token";
+    private static final String UNEXPECTED_ERROR = "unexpected.error";
+
     @ExceptionHandler(UserAlreadyRegisterException.class)
     public ResponseEntity<Object> handleUserAlreadyRegisterException(UserAlreadyRegisterException ex) {
-        return buildErrorResponse(ex.getMessage(), HttpStatus.CONFLICT, Map.of("login", ex.getLogin()));
+        return buildErrorResponse(ex.getMessage(), HttpStatus.CONFLICT, Map.of(LOGIN, ex.getLogin()));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
-        return buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, Map.of("login", ex.getLogin()));
+        return buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, Map.of(LOGIN, ex.getLogin()));
     }
 
     @ExceptionHandler(TokenRevokedException.class)
     public ResponseEntity<Object> handleTokenRevokedException(TokenRevokedException ex) {
-        return buildErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED, Map.of("token", ex.getToken()));
+        return buildErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED, Map.of(TOKEN, ex.getToken()));
     }
 
     @ExceptionHandler(InvalidTwoFactorCodeException.class)
@@ -40,7 +42,7 @@ public class SecurityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGenericException(Exception ex) {
-        return buildErrorResponse("unexpected.error", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        return buildErrorResponse(UNEXPECTED_ERROR, HttpStatus.INTERNAL_SERVER_ERROR, null);
     }
 
     private ResponseEntity<Object> buildErrorResponse(String message, HttpStatus status, Map<String, Object> details) {
