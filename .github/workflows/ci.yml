@@ -30,6 +30,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build project
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_SHORT: ${{ secrets.JWT_SHORT }}
+          JWT_LONG: ${{ secrets.JWT_LONG }}
         run: ./gradlew bootJar
 
   test:
