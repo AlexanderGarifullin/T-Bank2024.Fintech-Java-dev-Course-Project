@@ -39,7 +39,7 @@ public class SecurityConfig {
                     return corsConfiguration;
                 }))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
 //                         .requestMatchers("/**").hasRole("User")
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagementConfigurer ->
