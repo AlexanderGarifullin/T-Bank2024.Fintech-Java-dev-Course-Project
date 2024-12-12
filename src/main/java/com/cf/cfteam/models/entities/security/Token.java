@@ -25,9 +25,6 @@ public class Token {
     @Column(name = "c_revoked", nullable = false)
     private boolean revoked;
 
-    @Column(name = "c_time")
-    private Instant createdTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_user_id", nullable = false)
     private User user;

@@ -25,9 +25,6 @@ public class CfUser {
     @Column(name = "c_description", nullable = true)
     private String description;
 
-    @Column(name = "c_time")
-    private Instant createdTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_group_id", nullable = false)
     private CfUsersGroup group;

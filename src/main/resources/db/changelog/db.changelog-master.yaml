@@ -7,3 +7,7 @@ databaseChangeLog:
       file: db/changelog/column-rename-changelog.sql
   - include:
       file: db/changelog/remove-not-null-constrains.sql
+  - include:
+      file: db/changelog/set-ctime-default-values.sql
+  - include:
+      file: db/changelog/remove-ctime.sql

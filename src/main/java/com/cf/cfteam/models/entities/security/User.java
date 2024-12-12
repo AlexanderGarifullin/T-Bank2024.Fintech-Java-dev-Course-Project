@@ -33,9 +33,6 @@ public class User {
     @Column(name = "c_role", nullable = false)
     private Role role;
 
-    @Column(name = "c_time")
-    private Instant createdTime;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Token> tokens;
 }

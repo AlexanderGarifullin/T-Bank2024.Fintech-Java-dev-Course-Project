@@ -34,9 +34,6 @@ public class CfUsersTeam {
     @Column(name = "c_third_user_login", nullable = true)
     private String thirdUser;
 
-    @Column(name = "c_time")
-    private Instant createdTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_group_id", nullable = false)
     private CfUsersTeamsGroup group;
