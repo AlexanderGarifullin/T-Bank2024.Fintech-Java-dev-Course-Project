@@ -27,7 +27,7 @@ public class CfUsersGroup {
     @Column(name = "c_description", nullable = true)
     private String description;
 
-    @Column(name = "с_time", nullable = false)
+    @Column(name = "c_time")
     private Instant createdTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -34,7 +34,7 @@ public class CfUsersTeam {
     @Column(name = "c_third_user_login", nullable = true)
     private String thirdUser;
 
-    @Column(name = "с_time", nullable = false)
+    @Column(name = "c_time")
     private Instant createdTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
