@@ -38,3 +38,4 @@ out/
 
 ### yml ###
 src/main/resources/jwt.yml
+src/main/resources/test.yml
