@@ -3,3 +3,7 @@ databaseChangeLog:
       file: db/changelog/security-changelog.sql
   - include:
       file: db/changelog/codeforces-changelog.sql
+  - include:
+      file: db/changelog/column-rename-changelog.sql
+  - include:
+      file: db/changelog/remove-not-null-constrains.sql
