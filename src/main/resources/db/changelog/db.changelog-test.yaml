@@ -3,3 +3,13 @@ databaseChangeLog:
       file: db/changelog/security-changelog.sql
   - include:
       file: db/changelog/codeforces-changelog.sql
+  - include:
+      file: db/changelog/column-rename-changelog.sql
+  - include:
+      file: db/changelog/remove-not-null-constrains.sql
+  - include:
+      file: db/changelog/set-ctime-default-values.sql
+  - include:
+      file: db/changelog/remove-ctime.sql
+  - include:
+      file: db/changelog/init-security-changelog.sql
