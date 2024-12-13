@@ -3,7 +3,6 @@ package com.cf.cfteam.models.entities.codeforces;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
 
 @Builder
 @Setter
@@ -24,9 +23,6 @@ public class CfUser {
 
     @Column(name = "c_description", nullable = true)
     private String description;
-
-    @Column(name = "с_time", nullable = false)
-    private Instant createdTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_group_id", nullable = false)

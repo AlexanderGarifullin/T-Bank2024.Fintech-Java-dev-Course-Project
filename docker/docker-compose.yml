@@ -17,11 +17,14 @@ services:
     depends_on:
       - db
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - POSTGRES_CONTAINER_NAME=db
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=CodeforcesLocalDB
-      - SPRING_PROFILES_ACTIVE=prod
+      - JWT_SECRET=mysuperSecretPasswordformysuperbestAppwithsuperloginandBisness123Good2wow3magic1
+      - JWT_SHORT=10m
+      - JWT_LONG=30d
 volumes:
   db_data:

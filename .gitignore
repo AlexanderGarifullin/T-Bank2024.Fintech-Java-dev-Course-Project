@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### yml ###
+src/main/resources/jwt.yml
+src/main/resources/test.yml

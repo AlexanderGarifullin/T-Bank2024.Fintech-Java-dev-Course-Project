@@ -3,8 +3,6 @@ package com.cf.cfteam.models.entities.security;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
-
 @Builder
 @Setter
 @Getter
@@ -24,9 +22,6 @@ public class Token {
 
     @Column(name = "c_revoked", nullable = false)
     private boolean revoked;
-
-    @Column(name = "с_time", nullable = false)
-    private Instant createdTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_user_id", nullable = false)

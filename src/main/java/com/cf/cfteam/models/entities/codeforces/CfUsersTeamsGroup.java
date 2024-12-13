@@ -4,7 +4,6 @@ import com.cf.cfteam.models.entities.security.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
 import java.util.List;
 
 @Builder
@@ -26,9 +25,6 @@ public class CfUsersTeamsGroup {
 
     @Column(name = "c_description", nullable = true)
     private String description;
-
-    @Column(name = "с_time", nullable = false)
-    private Instant createdTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_user_id", nullable = false)

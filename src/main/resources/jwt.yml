@@ -1,0 +1,4 @@
+jwt:
+  secret: ${JWT_SECRET:mysuperSecretPasswordformysuperbestAppwithsuperloginandBisness123Good2wow3magic1}
+  short: ${JWT_SHORT:10m} # Default value
+  long: ${JWT_LONG:30d}   # Default value

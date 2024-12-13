@@ -3,7 +3,6 @@ package com.cf.cfteam.models.entities.security;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
 import java.util.List;
 
 @Builder
@@ -32,9 +31,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "c_role", nullable = false)
     private Role role;
-
-    @Column(name = "с_time", nullable = false)
-    private Instant createdTime;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Token> tokens;
