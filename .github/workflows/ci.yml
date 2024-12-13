@@ -59,7 +59,7 @@ jobs:
 
 
       - name: Run tests
-        run: ./gradlew clean test
+        run: ./gradlew test
 
       - name: Run tests with coverage
         run: ./gradlew jacocoTestReport
