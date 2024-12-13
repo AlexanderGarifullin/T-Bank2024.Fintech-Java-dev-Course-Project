@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("change-password")
+    @PatchMapping("change-password")
     public ResponseEntity<Void> changePassword(
             @RequestBody ChangePasswordPayload changePasswordRequest,
             Authentication authentication
