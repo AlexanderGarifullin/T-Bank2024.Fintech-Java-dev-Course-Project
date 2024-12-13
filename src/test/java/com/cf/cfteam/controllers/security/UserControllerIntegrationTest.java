@@ -8,7 +8,6 @@ import com.cf.cfteam.transfer.payloads.security.AuthenticationPayload;
 import com.cf.cfteam.transfer.payloads.security.ChangePasswordPayload;
 import com.cf.cfteam.transfer.payloads.security.RegistrationPayload;
 import com.cf.cfteam.transfer.responses.security.JwtAuthenticationResponse;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,8 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ActiveProfiles("test")
 public class UserControllerIntegrationTest extends BaseIntegrationTest {
@@ -56,6 +54,31 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         );
 
         deleteUserFromDb(user.get());
+    }
+
+    @Test
+    public void register_shouldThrowUserAlreadyRegisterException_WhenUserAlreadyRegistered() throws Exception {
+        String login = "user";
+        String password = "password";
+        String name = "Test User";
+
+        RegistrationPayload payload = RegistrationPayload.builder()
+                .login(login)
+                .password(password)
+                .name(name)
+                .build();
+
+        String requestBody = objectMapper.writeValueAsString(payload);
+
+        mockMvc.perform(post("/auth/register")
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.error").value("Conflict"))
+                .andExpect(jsonPath("$.message").value("login.already_register"))
+                .andExpect(jsonPath("$.details.login").value(login))
+                .andExpect(jsonPath("$.status").value(409))
+                .andExpect(jsonPath("$.timestamp").exists());
     }
 
     @Test
@@ -206,6 +229,37 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         );
 
         deleteUserFromDb(loginUser.get());
+    }
+
+    @Test
+    public void changePassword_shouldReturnBadRequest_WhenTwoFactorCodeInvalid() throws Exception {
+        RegistrationPayload payloadToRegister = RegistrationPayload.builder()
+                .login("register-login")
+                .name("register-name")
+                .password("register-password")
+                .build();
+
+        var jwtResponse = register(payloadToRegister);
+        var user = userRepository.findByLogin("register-login");
+
+
+        ChangePasswordPayload payload = ChangePasswordPayload.builder()
+                .newPassword("new-password")
+                .twoFactorCode("invalid-code")
+                .build();
+
+        mockMvc.perform(patch(uri + "/change-password")
+                        .header("Authorization", "Bearer %s".formatted(jwtResponse.token()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(payload)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("two-factor.code_invalid"))
+                .andExpect(jsonPath("$.timestamp").exists())
+                .andExpect(jsonPath("$.status").value(400));
+
+
+        deleteUserFromDb(user.get());
     }
 
 

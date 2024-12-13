@@ -41,6 +41,7 @@ public abstract class BaseIntegrationTest {
     @Autowired
     protected AuthenticationService authenticationService;
 
+
     protected static String userBearerToken;
 
     protected static final AuthenticationPayload userRequest = new AuthenticationPayload(

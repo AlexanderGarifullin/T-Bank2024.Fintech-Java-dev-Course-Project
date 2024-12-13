@@ -67,7 +67,7 @@ class UserControllerTest {
     }
 
     @Test
-    void testChangePassword() {
+    void testChangePassword_success() {
         ChangePasswordPayload changePasswordPayload = getChangePasswordPayload();
 
         userController.changePassword(changePasswordPayload, authentication);
