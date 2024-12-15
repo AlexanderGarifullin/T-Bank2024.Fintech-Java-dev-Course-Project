@@ -1,0 +1,4 @@
+codeforces:
+  api:
+    base:
+      url: https://codeforces.com/api/
