@@ -38,4 +38,4 @@ t_cf_users:
 
 # Примерная схема (не самая красивая)
 
-![context](../assets/db_base_schema.png)
+![context](../assets/db_old.png)
