@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"user", "cfTeams"})
 @Entity
 @Table(name = "t_cf_users_teams_groups", schema = "codeforces")
-public class CfUsersTeamsGroup {
+public class CfTeamsGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,5 @@ public class CfUsersTeamsGroup {
     private User user;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CfUsersTeam> cfTeams;
+    private List<CfTeam> cfTeams;
 }

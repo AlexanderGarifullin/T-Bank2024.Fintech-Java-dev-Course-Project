@@ -11,7 +11,7 @@ import lombok.*;
 @EqualsAndHashCode(exclude = "group")
 @Entity
 @Table(name = "t_cf_teams", schema = "codeforces")
-public class CfUsersTeam {
+public class CfTeam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,5 @@ public class CfUsersTeam {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_group_id", nullable = false)
-    private CfUsersTeamsGroup group;
+    private CfTeamsGroup group;
 }
