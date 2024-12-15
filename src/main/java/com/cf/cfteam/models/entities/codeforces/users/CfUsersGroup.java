@@ -1,4 +1,4 @@
-package com.cf.cfteam.models.entities.codeforces;
+package com.cf.cfteam.models.entities.codeforces.users;
 
 import com.cf.cfteam.models.entities.security.User;
 import jakarta.persistence.*;

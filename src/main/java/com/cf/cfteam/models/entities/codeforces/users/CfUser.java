@@ -1,7 +1,8 @@
-package com.cf.cfteam.models.entities.codeforces;
+package com.cf.cfteam.models.entities.codeforces.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 
 @Builder
 @Setter
@@ -10,8 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "group")
 @Entity
-@Table(name = "t_cf_teams", schema = "codeforces")
-public class CfTeam {
+@Table(name = "cf_users", schema = "codeforces")
+public class CfUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +24,7 @@ public class CfTeam {
     @Column(name = "c_description", nullable = true)
     private String description;
 
-    @Column(name = "c_first_user_login", nullable = true)
-    private String firstUser;
-
-    @Column(name = "c_second_user_login", nullable = true)
-    private String secondUser;
-
-    @Column(name = "c_third_user_login", nullable = true)
-    private String thirdUser;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_group_id", nullable = false)
-    private CfTeamsGroup group;
+    private CfUsersGroup group;
 }
