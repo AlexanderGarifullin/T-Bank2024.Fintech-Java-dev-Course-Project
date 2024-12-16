@@ -13,3 +13,7 @@ databaseChangeLog:
       file: db/changelog/remove-ctime.sql
   - include:
       file: db/changelog/init-security-changelog.sql
+  - include:
+      file: db/changelog/16-12-24-set-new-cf-schema.sql
+  - include:
+      file: db/changelog/16-12-24-2.sql
