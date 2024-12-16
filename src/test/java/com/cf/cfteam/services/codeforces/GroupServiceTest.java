@@ -70,10 +70,8 @@ class GroupServiceTest {
 
         var groups = groupService.getAllGroupsByUser(1L);
 
-        assertAll(
-                () -> assertThat(groups).hasSize(1),
-                () -> assertThat(groups).contains(group)
-        );
+        assertThat(groups).hasSize(1)
+                        .contains(group);
     }
 
     @Test
