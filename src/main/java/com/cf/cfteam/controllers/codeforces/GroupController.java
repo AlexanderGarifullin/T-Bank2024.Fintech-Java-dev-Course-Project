@@ -18,7 +18,8 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<GroupResponse>> getAllGroupsByUser(@PathVariable Long userId, Authentication authentication) {
+    public ResponseEntity<List<GroupResponse>> getAllGroupsByUser(@PathVariable Long userId,
+                                                                  Authentication authentication) {
         List<GroupResponse> groups = groupService.getAllGroupsByUser(userId);
         return ResponseEntity.ok(groups);
     }
@@ -30,7 +31,8 @@ public class GroupController {
     }
 
     @PostMapping("/user/{userId}")
-    public ResponseEntity<GroupResponse> addGroupToUser(@PathVariable Long userId, @RequestBody GroupPayload groupPayload,
+    public ResponseEntity<GroupResponse> addGroupToUser(@PathVariable Long userId,
+                                                        @RequestBody GroupPayload groupPayload,
                                                 Authentication authentication) {
         GroupResponse createdGroup = groupService.addGroupToUser(userId, groupPayload);
         return ResponseEntity.ok(createdGroup);

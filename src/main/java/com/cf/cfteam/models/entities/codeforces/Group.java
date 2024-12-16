@@ -1,7 +1,6 @@
 package com.cf.cfteam.models.entities.codeforces;
 
 import com.cf.cfteam.models.entities.security.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

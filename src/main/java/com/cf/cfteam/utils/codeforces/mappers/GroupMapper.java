@@ -4,9 +4,7 @@ import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
-import com.cf.cfteam.transfer.responses.codeforces.PlayerResponse;
 import com.cf.cfteam.transfer.responses.codeforces.TeamResponse;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

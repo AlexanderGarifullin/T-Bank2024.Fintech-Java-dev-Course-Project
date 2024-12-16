@@ -28,10 +28,11 @@ public class CodeforcesClient {
                         .build())
                 .retrieve()
                 .toEntity(UserInfoResponse.class);
-        if (playerResponse.getStatusCode().is2xxSuccessful() && playerResponse.getBody() != null &&
-        playerResponse.getBody().getResult().size() == 1 && playerResponse.getBody().getResult().getFirst() != null) {
-            return playerResponse.getBody().getResult().getFirst().getRating() != null ?
-                    playerResponse.getBody().getResult().getFirst().getRating() : 0.;
+        if (playerResponse.getStatusCode().is2xxSuccessful() && playerResponse.getBody() != null
+                && playerResponse.getBody().getResult().size() == 1
+                && playerResponse.getBody().getResult().getFirst() != null) {
+            return playerResponse.getBody().getResult().getFirst().getRating() != null
+                    ? playerResponse.getBody().getResult().getFirst().getRating() : 0.;
         }
         if (playerResponse.getStatusCode().is4xxClientError()) {
             throw new ClientErrorException(playerResponse.getStatusCode().toString());

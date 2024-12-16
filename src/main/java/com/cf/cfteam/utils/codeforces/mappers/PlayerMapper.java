@@ -2,10 +2,8 @@ package com.cf.cfteam.utils.codeforces.mappers;
 
 import com.cf.cfteam.models.entities.codeforces.Player;
 import com.cf.cfteam.transfer.responses.codeforces.PlayerResponse;
-import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

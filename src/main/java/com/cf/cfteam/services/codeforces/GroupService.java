@@ -9,13 +9,10 @@ import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.repositories.jpa.codeforces.GroupRepository;
 import com.cf.cfteam.repositories.jpa.security.UserRepository;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
-import com.cf.cfteam.utils.codeforces.mappers.TeamMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

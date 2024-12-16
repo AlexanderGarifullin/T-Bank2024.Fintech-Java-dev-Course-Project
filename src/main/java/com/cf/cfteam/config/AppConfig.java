@@ -1,7 +1,6 @@
 package com.cf.cfteam.config;
 
 import com.cf.cfteam.services.security.MyUserDetailsService;
-import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

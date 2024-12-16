@@ -4,7 +4,7 @@ import com.cf.cfteam.transfer.responses.codeforces.PlayerResponse;
 
 import java.util.List;
 
-public class RatingCalculator {
+public final class RatingCalculator {
 
     public static double getWinProbability(double ra, double rb) {
         return 1.0 / (1.0 + Math.pow(10.0, (rb - ra) / 400.0));

@@ -1,6 +1,5 @@
 package com.cf.cfteam.models.entities.codeforces;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
