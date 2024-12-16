@@ -1,8 +1,8 @@
 package com.cf.cfteam.controllers.codeforces;
 
-import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.services.codeforces.GroupService;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
+import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,28 +18,28 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Group>> getAllGroupsByUser(@PathVariable Long userId, Authentication authentication) {
-        List<Group> groups = groupService.getAllGroupsByUser(userId);
+    public ResponseEntity<List<GroupResponse>> getAllGroupsByUser(@PathVariable Long userId, Authentication authentication) {
+        List<GroupResponse> groups = groupService.getAllGroupsByUser(userId);
         return ResponseEntity.ok(groups);
     }
 
     @GetMapping("/{groupId}")
-    public ResponseEntity<Group> getGroupById(@PathVariable Long groupId, Authentication authentication) {
-        Group group = groupService.getGroupById(groupId);
+    public ResponseEntity<GroupResponse> getGroupById(@PathVariable Long groupId, Authentication authentication) {
+        GroupResponse group = groupService.getGroupById(groupId);
         return ResponseEntity.ok(group);
     }
 
     @PostMapping("/user/{userId}")
-    public ResponseEntity<Group> addGroupToUser(@PathVariable Long userId, @RequestBody GroupPayload groupPayload,
+    public ResponseEntity<GroupResponse> addGroupToUser(@PathVariable Long userId, @RequestBody GroupPayload groupPayload,
                                                 Authentication authentication) {
-        Group createdGroup = groupService.addGroupToUser(userId, groupPayload);
+        GroupResponse createdGroup = groupService.addGroupToUser(userId, groupPayload);
         return ResponseEntity.ok(createdGroup);
     }
 
     @PutMapping("/{groupId}")
-    public ResponseEntity<Group> updateGroup(@PathVariable Long groupId, @RequestBody GroupPayload groupPayload,
+    public ResponseEntity<GroupResponse> updateGroup(@PathVariable Long groupId, @RequestBody GroupPayload groupPayload,
                                              Authentication authentication) {
-        Group group = groupService.updateGroup(groupId, groupPayload);
+        GroupResponse group = groupService.updateGroup(groupId, groupPayload);
         return ResponseEntity.ok(group);
     }
 

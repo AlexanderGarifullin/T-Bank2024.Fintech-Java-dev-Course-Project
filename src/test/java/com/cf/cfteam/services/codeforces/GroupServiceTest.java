@@ -8,6 +8,8 @@ import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.repositories.jpa.codeforces.GroupRepository;
 import com.cf.cfteam.repositories.jpa.security.UserRepository;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
+import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
+import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,9 +38,13 @@ class GroupServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private GroupMapper groupMapper;
+
     private User user;
     private Group group;
     private GroupPayload groupPayload;
+    private GroupResponse groupResponse;
 
     @BeforeEach
     void setUp() {
@@ -61,17 +67,24 @@ class GroupServiceTest {
                 .name("Test Group")
                 .description("Test description")
                 .build();
+
+        groupResponse = GroupResponse.builder()
+                .name("Test Group")
+                .description("Test description")
+                .teams(null)
+                .build();
     }
 
     @Test
     void getAllGroupsByUser_ShouldReturnGroups_WhenUserExists() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(groupRepository.findByUser(user)).thenReturn(List.of(group));
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
 
         var groups = groupService.getAllGroupsByUser(1L);
 
         assertThat(groups).hasSize(1)
-                        .contains(group);
+                        .contains(groupResponse);
     }
 
     @Test
@@ -86,10 +99,11 @@ class GroupServiceTest {
     @Test
     void getGroupById_ShouldReturnGroup_WhenGroupExists() {
         when(groupRepository.findById(1L)).thenReturn(Optional.of(group));
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
 
         var result = groupService.getGroupById(1L);
 
-        assertThat(result).isEqualTo(group);
+        assertThat(result).isEqualTo(groupResponse);
     }
 
     @Test
@@ -105,10 +119,12 @@ class GroupServiceTest {
     void addGroupToUser_ShouldAddGroup_WhenUserExists() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(groupRepository.save(any(Group.class))).thenReturn(group);
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
+        when(groupMapper.fromPayloadToEntity(groupPayload, user)).thenReturn(group);
 
         var result = groupService.addGroupToUser(1L, groupPayload);
 
-        assertThat(result).isEqualTo(group);
+        assertThat(result).isEqualTo(groupResponse);
         verify(groupRepository, times(1)).save(any(Group.class));
     }
 
@@ -125,17 +141,14 @@ class GroupServiceTest {
     void updateGroup_ShouldUpdateGroup_WhenGroupExists() {
         when(groupRepository.findById(1L)).thenReturn(Optional.of(group));
         when(groupRepository.save(any(Group.class))).thenReturn(group);
-
-        groupPayload = GroupPayload.builder()
-                .name("NEW Test Group")
-                .description("NEW Test description")
-                .build();
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
+        when(groupMapper.updateEntityFromPayload(group, groupPayload)).thenReturn(group);
 
         var result = groupService.updateGroup(1L, groupPayload);
 
         assertAll(
-                () -> assertThat(result.getDescription()).isEqualTo(groupPayload.description()),
-                () -> assertThat(result.getName()).isEqualTo(group.getName())
+                () -> assertThat(result.description()).isEqualTo(groupPayload.description()),
+                () -> assertThat(result.name()).isEqualTo(group.getName())
         );
         verify(groupRepository, times(1)).save(any(Group.class));
     }

@@ -1,5 +1,7 @@
 package com.cf.cfteam.controllers.codeforces;
 
+import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
+import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.cf.cfteam.BaseIntegrationTest;
 import com.cf.cfteam.models.entities.codeforces.Group;
@@ -35,6 +37,9 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private GroupMapper groupMapper;
+
     @Test
     @SneakyThrows
     public void getAllGroupsByUser_notEmpty_success() {
@@ -55,12 +60,12 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
 
         var groups = objectMapper.readValue(
                 mvcResponse.getContentAsString(),
-                new TypeReference<List<Group>>() {
+                new TypeReference<List<GroupResponse>>() {
                 }
         );
 
         assertThat(groups).hasSize(1)
-                        .contains(group);
+                        .contains(groupMapper.fromEntityToResponse(group));
 
         deleteGroupFromDb(group);
         deleteUserFromDb(user);
@@ -98,9 +103,9 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
                 .andReturn()
                 .getResponse();
 
-        var responseGroupe = objectMapper.readValue(mvcResponse.getContentAsString(), Group.class);
+        var responseGroupe = objectMapper.readValue(mvcResponse.getContentAsString(), GroupResponse.class);
 
-        assertThat(responseGroupe).isEqualTo(group);
+        assertThat(responseGroupe).isEqualTo(groupMapper.fromEntityToResponse(group));
 
         deleteGroupFromDb(group);
         deleteUserFromDb(user);
@@ -139,14 +144,13 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
                 .andReturn()
                 .getResponse();
 
-        var responseGroupe = objectMapper.readValue(mvcResponse.getContentAsString(), Group.class);
-        var groupFromDb = groupRepository.findById(responseGroupe.getId());
+        var responseGroupe = objectMapper.readValue(mvcResponse.getContentAsString(), GroupResponse.class);
+        var groupFromDb = groupRepository.findById(responseGroupe.id());
 
         assertAll(
                 () -> assertThat(groupFromDb).isPresent(),
-                () -> assertThat(groupFromDb.get()).isEqualTo(responseGroupe),
-                () -> assertThat(responseGroupe.getDescription()).isEqualTo(payload.description()),
-                () -> assertThat(responseGroupe.getName()).isEqualTo(payload.name())
+                () -> assertThat(responseGroupe.description()).isEqualTo(payload.description()),
+                () -> assertThat(responseGroupe.name()).isEqualTo(payload.name())
         );
 
         deleteGroupFromDb(groupFromDb.get());
@@ -195,8 +199,8 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
                 .getResponse();
 
 
-        var responseGroupe = objectMapper.readValue(mvcResponse.getContentAsString(), Group.class);
-        var groupFromDb = groupRepository.findById(responseGroupe.getId());
+        var responseGroupe = objectMapper.readValue(mvcResponse.getContentAsString(), GroupResponse.class);
+        var groupFromDb = groupRepository.findById(responseGroupe.id());
 
         assertAll(
                 () -> assertThat(groupFromDb).isPresent(),
@@ -287,7 +291,7 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
 
         var groups = objectMapper.readValue(
                 mvcResponse.getContentAsString(),
-                new TypeReference<List<Group>>() {
+                new TypeReference<List<GroupResponse>>() {
                 }
         );
 

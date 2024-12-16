@@ -3,6 +3,8 @@ package com.cf.cfteam.controllers.codeforces;
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.services.codeforces.GroupService;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
+import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
+import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,74 +26,83 @@ class GroupControllerTest {
     private GroupController groupController;
 
     @Mock
+    private GroupMapper groupMapper;
+
+    @Mock
     private GroupService groupService;
 
     private GroupPayload groupPayload;
-    private Group group;
+//    private Group group;
+    private GroupResponse groupResponse;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        group = Group.builder()
-                .name("Test Group")
-                .description("Test description")
-                .user(null)
-                .build();
+//        group = Group.builder()
+//                .name("Test Group")
+//                .description("Test description")
+//                .user(null)
+//                .build();
 
         groupPayload = GroupPayload.builder()
                 .name("Test Group")
                 .description("Test description")
                 .build();
+
+        groupResponse = GroupResponse.builder()
+                .name("Test Group")
+                .description("Test description")
+                .teams(null)
+                .build();
     }
 
     @Test
     void shouldReturnGroupsByUserId() {
-        when(groupService.getAllGroupsByUser(1L)).thenReturn(List.of(group));
+        when(groupService.getAllGroupsByUser(1L)).thenReturn(List.of(groupResponse));
 
-        List<Group> groups = groupController.getAllGroupsByUser(1L, null).getBody();
+        List<GroupResponse> groups = groupController.getAllGroupsByUser(1L, null).getBody();
 
         verify(groupService, times(1)).getAllGroupsByUser(1L);
 
         assertThat(groups)
                 .isNotNull()
                 .hasSize(1)
-                .contains(group);
+                .contains(groupResponse);
     }
 
     @Test
     void shouldReturnGroupById() {
-        when(groupService.getGroupById(1L)).thenReturn(group);
+        when(groupService.getGroupById(1L)).thenReturn(groupResponse);
 
-        Group result = groupController.getGroupById(1L, null).getBody();
+        GroupResponse result = groupController.getGroupById(1L, null).getBody();
 
         verify(groupService, times(1)).getGroupById(1L);
-        assertThat(result).isEqualTo(group);
+        assertThat(result).isEqualTo(groupResponse);
     }
 
     @Test
     void shouldAddGroupToUser() {
-        when(groupService.addGroupToUser(1L, groupPayload)).thenReturn(group);
+        when(groupService.addGroupToUser(1L, groupPayload)).thenReturn(groupResponse);
 
-
-        Group result = groupController.addGroupToUser(1L, groupPayload, null).getBody();
+        GroupResponse result = groupController.addGroupToUser(1L, groupPayload, null).getBody();
 
         verify(groupService, times(1)).addGroupToUser(1L, groupPayload);
 
-        assertThat(result).isEqualTo(group);
+        assertThat(result).isEqualTo(groupResponse);
     }
 
     @Test
     void shouldUpdateGroup() {
-        when(groupService.updateGroup(1L, groupPayload)).thenReturn(group);
+        when(groupService.updateGroup(1L, groupPayload)).thenReturn(groupResponse);
 
-        Group result = groupController.updateGroup(1L, groupPayload, null).getBody();
+        GroupResponse result = groupController.updateGroup(1L, groupPayload, null).getBody();
 
         verify(groupService, times(1)).updateGroup(1L, groupPayload);
         assertAll(
                 () -> assertThat(result).isNotNull(),
-                () -> assertThat(result.getName()).isEqualTo(groupPayload.name()),
-                () -> assertThat(result.getDescription()).isEqualTo(groupPayload.description())
+                () -> assertThat(result.name()).isEqualTo(groupPayload.name()),
+                () -> assertThat(result.description()).isEqualTo(groupPayload.description())
         );
     }
 
