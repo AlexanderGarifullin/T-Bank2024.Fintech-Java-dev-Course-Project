@@ -1,7 +1,6 @@
 package com.cf.cfteam.services.codeforces;
 
 import com.cf.cfteam.exceptions.codeforces.GroupNotFoundException;
-import com.cf.cfteam.exceptions.security.UserAlreadyRegisterException;
 import com.cf.cfteam.exceptions.security.UserNotFoundException;
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.security.Role;
