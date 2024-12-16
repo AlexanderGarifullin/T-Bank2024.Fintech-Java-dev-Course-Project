@@ -19,4 +19,8 @@ public class GroupMapper {
         group.setDescription(payload.description());
         return group;
     }
+
+    private GroupMapper() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 }
