@@ -8,6 +8,7 @@ import com.cf.cfteam.transfer.payloads.security.AuthenticationPayload;
 import com.cf.cfteam.transfer.payloads.security.ChangePasswordPayload;
 import com.cf.cfteam.transfer.payloads.security.RegistrationPayload;
 import com.cf.cfteam.transfer.responses.security.JwtAuthenticationResponse;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,7 +33,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     private TokenRepository tokenRepository;
 
     @Test
-    public void register_success() throws Exception {
+    @SneakyThrows
+    public void register_success() {
         RegistrationPayload payload = RegistrationPayload.builder()
                 .login("register-login")
                 .name("register-name")
@@ -57,7 +59,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void register_shouldThrowUserAlreadyRegisterException_WhenUserAlreadyRegistered() throws Exception {
+    @SneakyThrows
+    public void register_shouldThrowUserAlreadyRegisterException_WhenUserAlreadyRegistered() {
         String login = "user";
         String password = "password";
         String name = "Test User";
@@ -82,7 +85,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void login_success() throws Exception {
+    @SneakyThrows
+    public void login_success() {
         RegistrationPayload payloadToRegister = RegistrationPayload.builder()
                 .login("register-login")
                 .name("register-name")
@@ -130,7 +134,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void logout_success() throws Exception {
+    @SneakyThrows
+    public void logout_success() {
         RegistrationPayload payloadToRegister = RegistrationPayload.builder()
                 .login("register-login")
                 .name("register-name")
@@ -157,7 +162,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void changePassword_success() throws Exception {
+    @SneakyThrows
+    public void changePassword_success() {
         RegistrationPayload payloadToRegister = RegistrationPayload.builder()
                 .login("register-login")
                 .name("register-name")
@@ -232,7 +238,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void changePassword_shouldReturnBadRequest_WhenTwoFactorCodeInvalid() throws Exception {
+    @SneakyThrows
+    public void changePassword_shouldReturnBadRequest_WhenTwoFactorCodeInvalid() {
         RegistrationPayload payloadToRegister = RegistrationPayload.builder()
                 .login("register-login")
                 .name("register-name")
@@ -262,8 +269,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         deleteUserFromDb(user.get());
     }
 
-
-    private JwtAuthenticationResponse register(RegistrationPayload payload) throws Exception {
+    @SneakyThrows
+    private JwtAuthenticationResponse register(RegistrationPayload payload) {
         var response = mockMvc.perform(post(uri + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload)))
