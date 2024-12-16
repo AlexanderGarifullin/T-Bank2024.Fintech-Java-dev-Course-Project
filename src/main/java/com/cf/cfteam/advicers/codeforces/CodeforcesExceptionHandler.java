@@ -1,8 +1,6 @@
 package com.cf.cfteam.advicers.codeforces;
 
 import com.cf.cfteam.exceptions.codeforces.GroupNotFoundException;
-import com.cf.cfteam.exceptions.security.UserNotFoundException;
-import jakarta.validation.GroupDefinitionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
