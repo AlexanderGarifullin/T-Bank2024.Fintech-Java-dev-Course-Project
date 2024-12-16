@@ -1,6 +1,7 @@
-package com.cf.cfteam.models.entities.codeforces.teams;
+package com.cf.cfteam.models.entities.codeforces;
 
 import com.cf.cfteam.models.entities.security.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,10 +12,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"user", "cfTeams"})
+@EqualsAndHashCode(exclude = {"user", "teams"})
 @Entity
-@Table(name = "t_cf_users_teams_groups", schema = "codeforces")
-public class CfTeamsGroup {
+@Table(name = "t_groups", schema = "codeforces")
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +24,14 @@ public class CfTeamsGroup {
     @Column(name = "c_name", nullable = false)
     private String name;
 
-    @Column(name = "c_description", nullable = true)
+    @Column(name = "c_description")
     private String description;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_user_id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CfTeam> cfTeams;
+    private List<Team> teams;
 }
