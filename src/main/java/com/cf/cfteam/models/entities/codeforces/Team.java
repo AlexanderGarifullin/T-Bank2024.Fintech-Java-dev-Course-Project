@@ -1,6 +1,5 @@
 package com.cf.cfteam.models.entities.codeforces;
 
-import com.cf.cfteam.models.entities.security.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,8 +32,8 @@ public class Team {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "t_team_player",
-            joinColumns  =  @JoinColumn(name="c_team_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name="c_player_id", referencedColumnName="id"))
+            joinColumns = @JoinColumn(name = "c_team_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "c_player_id", referencedColumnName = "id"))
     @Builder.Default
     private List<Player> players = new ArrayList<>();
 }

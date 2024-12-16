@@ -4,7 +4,7 @@ import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 
-public class GroupMapper {
+public final class GroupMapper {
 
     public static Group fromPayloadToEntity(GroupPayload payload, User user) {
         return Group.builder()
