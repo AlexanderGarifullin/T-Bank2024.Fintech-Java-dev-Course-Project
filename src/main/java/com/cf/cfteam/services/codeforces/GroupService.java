@@ -2,7 +2,7 @@ package com.cf.cfteam.services.codeforces;
 
 import com.cf.cfteam.exceptions.codeforces.GroupNotFoundException;
 import com.cf.cfteam.exceptions.security.UserNotFoundException;
-import com.cf.cfteam.mappers.codeforces.GroupMapper;
+import com.cf.cfteam.utils.codeforces.GroupMapper;
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.repositories.jpa.codeforces.GroupRepository;

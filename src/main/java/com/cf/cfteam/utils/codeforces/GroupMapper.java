@@ -1,4 +1,4 @@
-package com.cf.cfteam.mappers.codeforces;
+package com.cf.cfteam.utils.codeforces;
 
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.security.User;
