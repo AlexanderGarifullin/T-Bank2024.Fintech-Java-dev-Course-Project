@@ -24,7 +24,7 @@ public class Player {
     private String login;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "t_team_player",
+    @JoinTable(name = "t_team_player", schema = "codeforces",
             joinColumns = @JoinColumn(name = "c_player_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "c_team_id", referencedColumnName = "id"))
     @Builder.Default

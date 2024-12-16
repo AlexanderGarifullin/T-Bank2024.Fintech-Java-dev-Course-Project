@@ -27,7 +27,6 @@ public class Group {
     @Column(name = "c_description")
     private String description;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "c_user_id", nullable = false)
     private User user;
