@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
@@ -26,9 +27,21 @@ public class SecurityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
-        return ErrorResponseBuilder.buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, Map.of(LOGIN,
-                ex.getLogin()));
+        Map<String, Object> details = new HashMap<>();
+        if (ex.getLogin() != null) {
+            details.put("login", ex.getLogin());
+        }
+        if (ex.getId() != null) {
+            details.put("id", ex.getId());
+        }
+
+        return ErrorResponseBuilder.buildErrorResponse(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND,
+                details
+        );
     }
+
 
     @ExceptionHandler(TokenRevokedException.class)
     public ResponseEntity<Object> handleTokenRevokedException(TokenRevokedException ex) {
