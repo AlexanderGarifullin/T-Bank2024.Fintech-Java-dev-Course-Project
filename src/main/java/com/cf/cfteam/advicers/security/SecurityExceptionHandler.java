@@ -18,6 +18,7 @@ public class SecurityExceptionHandler {
 
     private static final String LOGIN = "login";
     private static final String TOKEN = "token";
+    private static final String ID = "id";
 
     @ExceptionHandler(UserAlreadyRegisterException.class)
     public ResponseEntity<Object> handleUserAlreadyRegisterException(UserAlreadyRegisterException ex) {
@@ -29,10 +30,10 @@ public class SecurityExceptionHandler {
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
         Map<String, Object> details = new HashMap<>();
         if (ex.getLogin() != null) {
-            details.put("login", ex.getLogin());
+            details.put(LOGIN, ex.getLogin());
         }
         if (ex.getId() != null) {
-            details.put("id", ex.getId());
+            details.put(ID, ex.getId());
         }
 
         return ErrorResponseBuilder.buildErrorResponse(
@@ -41,7 +42,6 @@ public class SecurityExceptionHandler {
                 details
         );
     }
-
 
     @ExceptionHandler(TokenRevokedException.class)
     public ResponseEntity<Object> handleTokenRevokedException(TokenRevokedException ex) {

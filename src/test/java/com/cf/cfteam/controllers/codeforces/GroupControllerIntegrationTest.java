@@ -102,7 +102,8 @@ public class GroupControllerIntegrationTest extends BaseIntegrationTest {
 
         assertThat(responseGroupe).isEqualTo(group);
 
-        deleteGroupFromDb(group);;
+        deleteGroupFromDb(group);
+        deleteUserFromDb(user);
     }
 
     @Test
