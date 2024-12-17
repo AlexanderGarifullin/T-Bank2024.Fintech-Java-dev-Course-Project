@@ -5,7 +5,6 @@ import com.cf.cfteam.exceptions.codeforces.PlayerNotFoundException;
 import com.cf.cfteam.exceptions.codeforces.PlayerNotFromTeamException;
 import com.cf.cfteam.exceptions.codeforces.TeamNotFoundException;
 import com.cf.cfteam.models.entities.codeforces.Player;
-import com.cf.cfteam.models.entities.codeforces.Team;
 import com.cf.cfteam.repositories.jpa.codeforces.PlayerRepository;
 import com.cf.cfteam.repositories.jpa.codeforces.TeamRepository;
 import com.cf.cfteam.transfer.payloads.codeforces.PlayerPayload;
