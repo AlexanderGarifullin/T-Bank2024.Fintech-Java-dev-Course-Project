@@ -51,7 +51,7 @@ public class TeamController {
     }
 
     @DeleteMapping("/group/{groupId}")
-    public ResponseEntity<Void> deleteAllTeamsByUser(@PathVariable Long groupId, Authentication authentication) {
+    public ResponseEntity<Void> deleteAllTeamsByGroup(@PathVariable Long groupId, Authentication authentication) {
         teamService.deleteAllTeamsByGroup(groupId);
         return ResponseEntity.noContent().build();
     }
