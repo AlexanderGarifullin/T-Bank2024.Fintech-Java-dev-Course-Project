@@ -1,5 +1,6 @@
 package com.cf.cfteam.services.client;
 
+import com.cf.cfteam.BaseIntegrationTest;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @SpringBootTest
 @WireMockTest(httpPort = 8080)
-class CodeforcesClientTest {
+class CodeforcesClientTest extends BaseIntegrationTest {
 
     @Autowired
     private CodeforcesClient codeforcesClient;
