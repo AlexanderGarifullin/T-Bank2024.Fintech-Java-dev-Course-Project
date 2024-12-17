@@ -106,7 +106,7 @@ class TeamServiceTest {
     }
 
     @Test
-    void getTeamById_ShouldThrowTeamNotFoundException_WhenTeanDoesNotExist() {
+    void getTeamById_ShouldThrowTeamNotFoundException_WhenTeamDoesNotExist() {
         when(teamRepository.findById(1L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() ->  teamService.getTeamById(1L))
