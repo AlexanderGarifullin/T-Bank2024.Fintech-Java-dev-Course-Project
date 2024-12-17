@@ -11,3 +11,8 @@ databaseChangeLog:
       file: db/changelog/set-ctime-default-values.sql
   - include:
       file: db/changelog/remove-ctime.sql
+  - include:
+      file: db/changelog/16-12-24-set-new-cf-schema.sql
+  - include:
+      file: db/changelog/16-12-24-2.sql
+

@@ -1,0 +1,191 @@
+package com.cf.cfteam.services.codeforces;
+
+import com.cf.cfteam.exceptions.codeforces.GroupNotFoundException;
+import com.cf.cfteam.exceptions.security.UserNotFoundException;
+import com.cf.cfteam.models.entities.codeforces.Group;
+import com.cf.cfteam.models.entities.security.Role;
+import com.cf.cfteam.models.entities.security.User;
+import com.cf.cfteam.repositories.jpa.codeforces.GroupRepository;
+import com.cf.cfteam.repositories.jpa.security.UserRepository;
+import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
+import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
+import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+@ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
+class GroupServiceTest {
+
+    @InjectMocks
+    private GroupService groupService;
+
+    @Mock
+    private GroupRepository groupRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private GroupMapper groupMapper;
+
+    private static User user;
+    private static Group group;
+    private static GroupPayload groupPayload;
+    private static GroupResponse groupResponse;
+
+    @BeforeAll
+    static void setUp() {
+
+        user = User.builder()
+                .name("User name")
+                .login("User login")
+                .hashedPassword("Password")
+                .role(Role.USER)
+                .build();
+
+        group = Group.builder()
+                .name("Test Group")
+                .description("Test description")
+                .user(user)
+                .build();
+
+        groupPayload = GroupPayload.builder()
+                .name("Test Group")
+                .description("Test description")
+                .build();
+
+        groupResponse = GroupResponse.builder()
+                .name("Test Group")
+                .description("Test description")
+                .teams(null)
+                .build();
+    }
+
+    @Test
+    void getAllGroupsByUser_ShouldReturnGroups_WhenUserExists() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(groupRepository.findByUser(user)).thenReturn(List.of(group));
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
+
+        var groups = groupService.getAllGroupsByUser(1L);
+
+        assertThat(groups).hasSize(1)
+                        .contains(groupResponse);
+    }
+
+    @Test
+    void getAllGroupsByUser_ShouldThrowUserNotFoundException_WhenUserDoesNotExist() {
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() ->  groupService.getAllGroupsByUser(1L))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("id.not_found");
+    }
+
+    @Test
+    void getGroupById_ShouldReturnGroup_WhenGroupExists() {
+        when(groupRepository.findById(1L)).thenReturn(Optional.of(group));
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
+
+        var result = groupService.getGroupById(1L);
+
+        assertThat(result).isEqualTo(groupResponse);
+    }
+
+    @Test
+    void getGroupById_ShouldThrowGroupNotFoundException_WhenGroupDoesNotExist() {
+        when(groupRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() ->  groupService.getGroupById(1L))
+                .isInstanceOf(GroupNotFoundException.class)
+                .hasMessageContaining("id.not_found");
+    }
+
+    @Test
+    void addGroupToUser_ShouldAddGroup_WhenUserExists() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(groupRepository.save(any(Group.class))).thenReturn(group);
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
+        when(groupMapper.fromPayloadToEntity(groupPayload, user)).thenReturn(group);
+
+        var result = groupService.addGroupToUser(1L, groupPayload);
+
+        assertThat(result).isEqualTo(groupResponse);
+        verify(groupRepository, times(1)).save(any(Group.class));
+    }
+
+    @Test
+    void addGroupToUser_ShouldThrowUserNotFoundException_WhenUserDoesNotExist() {
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> groupService.addGroupToUser(1L, groupPayload))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("id.not_found");
+    }
+
+    @Test
+    void updateGroup_ShouldUpdateGroup_WhenGroupExists() {
+        when(groupRepository.findById(1L)).thenReturn(Optional.of(group));
+        when(groupRepository.save(any(Group.class))).thenReturn(group);
+        when(groupMapper.fromEntityToResponse(group)).thenReturn(groupResponse);
+        when(groupMapper.updateEntityFromPayload(group, groupPayload)).thenReturn(group);
+
+        var result = groupService.updateGroup(1L, groupPayload);
+
+        assertAll(
+                () -> assertThat(result.description()).isEqualTo(groupPayload.description()),
+                () -> assertThat(result.name()).isEqualTo(group.getName())
+        );
+        verify(groupRepository, times(1)).save(any(Group.class));
+    }
+
+    @Test
+    void updateGroup_ShouldThrowGroupNotFoundException_WhenGroupDoesNotExist() {
+        when(groupRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() ->  groupService.updateGroup(1L, groupPayload))
+                .isInstanceOf(GroupNotFoundException.class)
+                .hasMessageContaining("id.not_found");
+    }
+
+    @Test
+    void deleteGroup_ShouldDeleteGroup_WhenGroupExists() {
+        groupService.deleteGroup(1L);
+
+        verify(groupRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void deleteAllGroupsByUser_ShouldDeleteAllGroups_WhenUserExists() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(groupRepository.findByUser(user)).thenReturn(List.of(group));
+
+        groupService.deleteAllGroupsByUser(1L);
+
+        verify(groupRepository, times(1)).deleteAll(anyList());
+    }
+
+    @Test
+    void deleteAllGroupsByUser_ShouldThrowUserNotFoundException_WhenUserDoesNotExist() {
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> groupService.deleteAllGroupsByUser(1L))
+                .isInstanceOf(UserNotFoundException.class)
+                .hasMessageContaining("id.not_found");
+    }
+}

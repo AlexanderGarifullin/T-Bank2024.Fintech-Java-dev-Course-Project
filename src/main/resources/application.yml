@@ -7,7 +7,7 @@ spring:
     password: ${POSTGRES_PASSWORD:123}
     driver-class-name: org.postgresql.Driver
   config:
-    import: jwt.yml
+    import: jwt.yml, codeforces.yml
   profiles:
     active: prod
 

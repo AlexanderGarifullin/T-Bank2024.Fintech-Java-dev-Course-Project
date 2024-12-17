@@ -4,11 +4,11 @@ package com.cf.cfteam.services.security;
 import com.cf.cfteam.exceptions.security.TokenNotFoundException;
 import com.cf.cfteam.models.entities.security.Token;
 import com.cf.cfteam.repositories.jpa.security.TokenRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class TokenServiceTest {
 
     @InjectMocks
@@ -25,11 +26,6 @@ class TokenServiceTest {
 
     @Mock
     private TokenRepository tokenRepository;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void isTokenRevoked_shouldReturnTrue_whenTokenIsRevoked() {

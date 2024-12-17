@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"user", "cfUsers"})
+@EqualsAndHashCode(exclude = {"user", "teams"})
 @Entity
-@Table(name = "t_cf_users_groups", schema = "codeforces")
-public class CfUsersGroup {
+@Table(name = "t_groups", schema = "codeforces")
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class CfUsersGroup {
     @Column(name = "c_name", nullable = false)
     private String name;
 
-    @Column(name = "c_description", nullable = true)
+    @Column(name = "c_description")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,5 +31,5 @@ public class CfUsersGroup {
     private User user;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CfUser> cfUsers;
+    private List<Team> teams;
 }

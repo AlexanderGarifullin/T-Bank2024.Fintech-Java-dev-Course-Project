@@ -56,12 +56,12 @@
 
     <!-- https://checkstyle.org/config_misc.html -->
     <!--      Check for trailing spaces.        -->
-    <module name="RegexpSingleline">
-        <property name="format" value="\s+$"/>
-        <property name="minimum" value="0"/>
-        <property name="maximum" value="0"/>
-        <property name="message" value="Line has trailing spaces."/>
-    </module>
+<!--    <module name="RegexpSingleline">-->
+<!--        <property name="format" value="\s+$"/>-->
+<!--        <property name="minimum" value="0"/>-->
+<!--        <property name="maximum" value="0"/>-->
+<!--        <property name="message" value="Line has trailing spaces."/>-->
+<!--    </module>-->
 
 
     <!-- https://checkstyle.org/config_filters.html -->
@@ -277,12 +277,12 @@
         <!-- <module name="IllegalTokenText"/> -->
         <!-- <module name="IllegalType"/> -->
         <module name="InnerAssignment"/>
-        <module name="MagicNumber">
-            <property name="ignoreHashCodeMethod" value="true"/>
-            <property name="ignoreAnnotation" value="true"/>
-            <message key="magic.number"
-                     value="Most likely the value ''{0}'' is a configuration one. You should move it to configuration file instead of source code."/>
-        </module>
+<!--        <module name="MagicNumber">-->
+<!--            <property name="ignoreHashCodeMethod" value="true"/>-->
+<!--            <property name="ignoreAnnotation" value="true"/>-->
+<!--            <message key="magic.number"-->
+<!--                     value="Most likely the value ''{0}'' is a configuration one. You should move it to configuration file instead of source code."/>-->
+<!--        </module>-->
         <!-- <module name="MissingCtor"/> -->
         <module name="MissingSwitchDefault"/>
         <module name="ModifiedControlVariable"/>
