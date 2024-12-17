@@ -12,11 +12,11 @@ import com.cf.cfteam.transfer.payloads.security.AuthenticationPayload;
 import com.cf.cfteam.transfer.payloads.security.ChangePasswordPayload;
 import com.cf.cfteam.transfer.payloads.security.RegistrationPayload;
 import com.cf.cfteam.transfer.responses.security.JwtAuthenticationResponse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
 
     @InjectMocks
@@ -54,11 +55,6 @@ class AuthenticationServiceTest {
 
     @Mock
     private UserDetails userDetails;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void register_shouldThrowException_WhenUserAlreadyRegistered() {

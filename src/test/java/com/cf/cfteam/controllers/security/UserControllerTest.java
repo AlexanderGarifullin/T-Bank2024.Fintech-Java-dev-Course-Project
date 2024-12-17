@@ -8,9 +8,11 @@ import com.cf.cfteam.transfer.payloads.security.RegistrationPayload;
 import com.cf.cfteam.transfer.responses.security.JwtAuthenticationResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.security.core.Authentication;
 
@@ -19,6 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
     @InjectMocks
@@ -29,11 +32,6 @@ class UserControllerTest {
 
     @Mock
     private Authentication authentication;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testRegister_success() {

@@ -3,11 +3,12 @@ package com.cf.cfteam.controllers.codeforces;
 import com.cf.cfteam.services.codeforces.GroupService;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.*;
 
 
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class GroupControllerTest {
 
     @InjectMocks
@@ -26,19 +28,11 @@ class GroupControllerTest {
     @Mock
     private GroupService groupService;
 
-    private GroupPayload groupPayload;
-    private GroupResponse groupResponse;
+    private static GroupPayload groupPayload;
+    private static GroupResponse groupResponse;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-
-//        group = Group.builder()
-//                .name("Test Group")
-//                .description("Test description")
-//                .user(null)
-//                .build();
-
+    @BeforeAll
+    static void setUp() {
         groupPayload = GroupPayload.builder()
                 .name("Test Group")
                 .description("Test description")

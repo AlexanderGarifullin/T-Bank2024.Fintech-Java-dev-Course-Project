@@ -2,11 +2,11 @@ package com.cf.cfteam.services.security;
 
 import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.repositories.jpa.security.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ActiveProfiles;
@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 class MyUserDetailsServiceTest {
 
     @Mock
@@ -25,11 +26,6 @@ class MyUserDetailsServiceTest {
 
     @InjectMocks
     private MyUserDetailsService userDetailsService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void loadUserByUsername_shouldLoadUserByUsername_WhenUserExists() {
