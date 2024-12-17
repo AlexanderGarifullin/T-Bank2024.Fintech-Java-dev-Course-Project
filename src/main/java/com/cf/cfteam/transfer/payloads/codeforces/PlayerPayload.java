@@ -3,5 +3,7 @@ package com.cf.cfteam.transfer.payloads.codeforces;
 import lombok.Builder;
 
 @Builder
-public record PlayerPayload() {
+public record PlayerPayload(
+        String login
+) {
 }
