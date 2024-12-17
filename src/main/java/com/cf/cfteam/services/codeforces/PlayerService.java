@@ -1,5 +1,6 @@
 package com.cf.cfteam.services.codeforces;
 
+import com.cf.cfteam.exceptions.codeforces.PlayerAlreadyInTeamException;
 import com.cf.cfteam.exceptions.codeforces.PlayerNotFoundException;
 import com.cf.cfteam.exceptions.codeforces.PlayerNotFromTeamException;
 import com.cf.cfteam.exceptions.codeforces.TeamNotFoundException;
@@ -22,6 +23,7 @@ public class PlayerService {
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
     private final PlayerMapper playerMapper;
+    private final TeamPlayerLinker teamPlayerLinker;
 
     public List<PlayerResponse> getAllPlayersByTeam(Long teamId) {
         var team = teamRepository.findById(teamId)
@@ -45,7 +47,11 @@ public class PlayerService {
 
         var player = createPlayer(payload);
 
-        linkTeamAndPlayer(team, player);
+        if (team.getPlayers().contains(player)) {
+            throw new PlayerAlreadyInTeamException(player.getLogin());
+        }
+
+        teamPlayerLinker.linkTeamAndPlayer(team, player);
 
         return playerMapper.fromEntityToResponse(player);
     }
@@ -62,9 +68,9 @@ public class PlayerService {
             throw new PlayerNotFromTeamException(teamId, playerId);
         }
 
-        unlinkTeamAndPlayer(team, player);
+        teamPlayerLinker.unlinkTeamAndPlayer(team, player);
         player = createPlayer(payload);
-        linkTeamAndPlayer(team, player);
+        teamPlayerLinker.linkTeamAndPlayer(team, player);
 
         return playerMapper.fromEntityToResponse(player);
     }
@@ -85,7 +91,7 @@ public class PlayerService {
         var team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new TeamNotFoundException(teamId));
 
-        unlinkTeamAndPlayer(team, player);
+        teamPlayerLinker.unlinkTeamAndPlayer(team, player);
     }
 
 
@@ -93,29 +99,12 @@ public class PlayerService {
         var team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new TeamNotFoundException(teamId));
 
-        var players = team.getPlayers();
+        var players = List.copyOf(team.getPlayers());
 
         players.forEach(player -> player.getTeams().remove(team));
         team.getPlayers().clear();
 
         teamRepository.save(team);
         players.forEach(playerRepository::save);
-    }
-
-    private void unlinkTeamAndPlayer(Team team, Player player) {
-        team.getPlayers().remove(player);
-        player.getTeams().remove(team);
-        saveTeamAndPlayer(team, player);
-    }
-
-    private void linkTeamAndPlayer(Team team, Player player) {
-        team.getPlayers().add(player);
-        player.getTeams().add(team);
-        saveTeamAndPlayer(team, player);
-    }
-
-    private void saveTeamAndPlayer(Team team, Player player) {
-        teamRepository.save(team);
-        playerRepository.save(player);
     }
 }
