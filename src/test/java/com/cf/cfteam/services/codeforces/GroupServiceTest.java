@@ -10,12 +10,11 @@ import com.cf.cfteam.repositories.jpa.security.UserRepository;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
 import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -44,13 +43,13 @@ class GroupServiceTest {
     @Mock
     private GroupMapper groupMapper;
 
-    private User user;
-    private Group group;
-    private GroupPayload groupPayload;
-    private GroupResponse groupResponse;
+    private static User user;
+    private static Group group;
+    private static GroupPayload groupPayload;
+    private static GroupResponse groupResponse;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
 
         user = User.builder()
                 .name("User name")
