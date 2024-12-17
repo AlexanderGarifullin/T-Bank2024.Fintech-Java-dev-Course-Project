@@ -13,8 +13,6 @@ import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.repositories.jpa.codeforces.GroupRepository;
 import com.cf.cfteam.repositories.jpa.security.UserRepository;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -48,22 +46,12 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private TeamMapper teamMapper;
 
-    private static User user;
-
-    @BeforeEach
-    void init() {
-        user = createUser();
-        user = userRepository.save(user);
-    }
-
-    @AfterEach
-    void postDelete() {
-        deleteUserFromDb(user);
-    }
-
     @Test
     @SneakyThrows
     public void getAllGroupsByUser_notEmpty_success() {
+        User user = createUser("getAllGroupsByUser_notEmpty_success");
+        user = userRepository.save(user);
+
         Group group = createGroup(user);
         group = groupRepository.save(group);
 
@@ -109,6 +97,9 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
     @Test
     @SneakyThrows
     public void getTeamById_notEmpty() {
+        User user = createUser("getTeamById_notEmpty");
+        user = userRepository.save(user);
+
         Group group = createGroup(user);
         group = groupRepository.save(group);
 
@@ -149,6 +140,9 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
     @Test
     @SneakyThrows
     public void addTeamToGroup_success() {
+        User user = createUser("addTeamToGroup_success");
+        user = userRepository.save(user);
+
         Group group = createGroup(user);
         group = groupRepository.save(group);
 
@@ -199,6 +193,9 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
     @Test
     @SneakyThrows
     public void updateTeam_success() {
+        User user = createUser("updateTeam_success");
+        user = userRepository.save(user);
+
         Group group = createGroup(user);
         group = groupRepository.save(group);
 
@@ -254,6 +251,9 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
     @Test
     @SneakyThrows
     public void deleteTeam_success() {
+        User user = createUser("deleteTeam_success");
+        user = userRepository.save(user);
+
         Group group = createGroup(user);
         group = groupRepository.save(group);
 
@@ -277,6 +277,9 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
     @Test
     @SneakyThrows
     public void deleteAllTeamsByGroup_success() {
+        User user = createUser("deleteAllTeamsByGroup_success");
+        user = userRepository.save(user);
+
         Group group = createGroup(user);
         group = groupRepository.save(group);
 
@@ -335,10 +338,10 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
                 .build();
     }
 
-    private User createUser() {
+    private User createUser(String login) {
         return User.builder()
-                .name("User name")
-                .login("User login")
+                .name("Team controller User name")
+                .login(login)
                 .hashedPassword("Password")
                 .role(Role.USER)
                 .build();

@@ -34,7 +34,8 @@ public class CodeforcesExceptionHandler {
 
     @ExceptionHandler(PlayerAlreadyInTeamException.class)
     public ResponseEntity<Object> handlePlayerAlreadyInTeamException(PlayerAlreadyInTeamException ex) {
-        return ErrorResponseBuilder.buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND, Map.of(LOGIN, ex.getLogin()));
+        return ErrorResponseBuilder.buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND,
+                Map.of(LOGIN, ex.getLogin()));
     }
 
     @ExceptionHandler(PlayerNotFromTeamException.class)
