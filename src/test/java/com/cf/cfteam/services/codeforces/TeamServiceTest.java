@@ -2,16 +2,11 @@ package com.cf.cfteam.services.codeforces;
 
 import com.cf.cfteam.exceptions.codeforces.GroupNotFoundException;
 import com.cf.cfteam.exceptions.codeforces.TeamNotFoundException;
-import com.cf.cfteam.exceptions.security.UserNotFoundException;
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.codeforces.Team;
-import com.cf.cfteam.models.entities.security.Role;
-import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.repositories.jpa.codeforces.GroupRepository;
 import com.cf.cfteam.repositories.jpa.codeforces.TeamRepository;
-import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.payloads.codeforces.TeamPayload;
-import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
 import com.cf.cfteam.transfer.responses.codeforces.TeamResponse;
 import com.cf.cfteam.utils.codeforces.mappers.TeamMapper;
 import org.junit.jupiter.api.BeforeAll;
