@@ -1,10 +1,8 @@
 package com.cf.cfteam.controllers.codeforces;
 
-import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.services.codeforces.GroupService;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
-import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,13 +24,9 @@ class GroupControllerTest {
     private GroupController groupController;
 
     @Mock
-    private GroupMapper groupMapper;
-
-    @Mock
     private GroupService groupService;
 
     private GroupPayload groupPayload;
-//    private Group group;
     private GroupResponse groupResponse;
 
     @BeforeEach
