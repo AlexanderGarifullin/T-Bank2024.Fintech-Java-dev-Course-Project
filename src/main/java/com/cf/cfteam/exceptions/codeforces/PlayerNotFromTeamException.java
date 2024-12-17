@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public class PlayerNotFromTeamException extends RuntimeException {
 
-    private final Long teamId, playerId;
+    private final Long teamId;
+    private final Long playerId;
 
     public PlayerNotFromTeamException(Long teamId, Long playerId) {
         super("player.not_from_team");

@@ -1,10 +1,7 @@
 package com.cf.cfteam.controllers.codeforces;
 
-import com.cf.cfteam.models.entities.codeforces.Player;
 import com.cf.cfteam.services.codeforces.PlayerService;
-import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.payloads.codeforces.PlayerPayload;
-import com.cf.cfteam.transfer.payloads.codeforces.TeamPayload;
 import com.cf.cfteam.transfer.responses.codeforces.PlayerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

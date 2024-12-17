@@ -2,8 +2,6 @@ package com.cf.cfteam.utils.codeforces.mappers;
 
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.codeforces.Team;
-import com.cf.cfteam.models.entities.security.User;
-import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.payloads.codeforces.TeamPayload;
 import com.cf.cfteam.transfer.responses.codeforces.PlayerResponse;
 import com.cf.cfteam.transfer.responses.codeforces.TeamResponse;

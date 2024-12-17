@@ -1,7 +1,6 @@
 package com.cf.cfteam.controllers.codeforces;
 
 import com.cf.cfteam.services.codeforces.TeamService;
-import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
 import com.cf.cfteam.transfer.payloads.codeforces.TeamPayload;
 import com.cf.cfteam.transfer.responses.codeforces.TeamResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,8 @@ public class TeamController {
     private final TeamService teamService;
 
     @GetMapping("/group/{groupId}")
-    public ResponseEntity<List<TeamResponse>> getAllTeamsByGroup(@PathVariable Long groupId, Authentication authentication) {
+    public ResponseEntity<List<TeamResponse>> getAllTeamsByGroup(@PathVariable Long groupId,
+                                                                 Authentication authentication) {
         List<TeamResponse> teams = teamService.getAllTeamsByGroup(groupId);
         return ResponseEntity.ok(teams);
     }

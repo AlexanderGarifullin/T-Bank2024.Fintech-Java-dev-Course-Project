@@ -62,7 +62,7 @@ public class PlayerService {
             throw new PlayerNotFromTeamException(teamId, playerId);
         }
 
-        unlinkTeamAndPlayer(team, player);;
+        unlinkTeamAndPlayer(team, player);
         player = createPlayer(payload);
         linkTeamAndPlayer(team, player);
 
