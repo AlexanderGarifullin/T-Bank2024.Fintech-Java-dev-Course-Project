@@ -260,7 +260,7 @@ public class TeamControllerIntegrationTest extends BaseIntegrationTest {
         Team team = createTeam(group);
         team = teamRepository.save(team);
 
-        mockMvc.perform(delete(URI + "/" + group.getId())
+        mockMvc.perform(delete(URI + "/" + team.getId())
                         .header("Authorization", userBearerToken))
                 .andExpectAll(
                         status().isNoContent(),
