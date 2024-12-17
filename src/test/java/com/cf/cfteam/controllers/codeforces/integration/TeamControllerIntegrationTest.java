@@ -1,4 +1,4 @@
-package com.cf.cfteam.controllers.codeforces;
+package com.cf.cfteam.controllers.codeforces.integration;
 
 import com.cf.cfteam.models.entities.codeforces.Team;
 import com.cf.cfteam.repositories.jpa.codeforces.TeamRepository;

@@ -1,5 +1,6 @@
-package com.cf.cfteam.controllers.codeforces;
+package com.cf.cfteam.controllers.codeforces.unit;
 
+import com.cf.cfteam.controllers.codeforces.TeamController;
 import com.cf.cfteam.services.codeforces.TeamService;
 import com.cf.cfteam.transfer.payloads.codeforces.TeamPayload;
 import com.cf.cfteam.transfer.responses.codeforces.TeamResponse;

@@ -1,4 +1,4 @@
-package com.cf.cfteam.controllers.codeforces;
+package com.cf.cfteam.controllers.codeforces.integration;
 
 import com.cf.cfteam.transfer.responses.codeforces.GroupResponse;
 import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
