@@ -22,7 +22,7 @@ public class TeamMapper {
         List<PlayerResponse> convertedPlayers = new ArrayList<>();
         Double teamRating = 0.;
 
-        if (team.getPlayers() != null) {
+        if (team.getPlayers() != null && !team.getPlayers().isEmpty()) {
             convertedPlayers = team.getPlayers().stream()
                     .map(playerMapper::fromEntityToResponse)
                     .toList();

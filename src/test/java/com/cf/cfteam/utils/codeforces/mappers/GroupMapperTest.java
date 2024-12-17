@@ -1,18 +1,13 @@
-package com.cf.cfteam.utils.codeforces;
+package com.cf.cfteam.utils.codeforces.mappers;
 
 import com.cf.cfteam.models.entities.codeforces.Group;
 import com.cf.cfteam.models.entities.security.Role;
 import com.cf.cfteam.models.entities.security.User;
 import com.cf.cfteam.transfer.payloads.codeforces.GroupPayload;
-import com.cf.cfteam.utils.codeforces.mappers.GroupMapper;
-import com.cf.cfteam.utils.codeforces.mappers.TeamMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
