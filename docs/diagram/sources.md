@@ -2,66 +2,57 @@
 ```PlantUML
 @startuml
 
-' Указываем пакеты для схем
 package "security" {
     class t_users {
         +id: BIGSERIAL
-        +c_name: TEXT
-        +c_login: TEXT [UNIQUE]
-        +c_hashed_password: TEXT
-        +c_role: TEXT
+        +c_name: TEXT [NOT NULL]
+        +c_login: TEXT [UNIQUE NOT NULL]
+        +c_hashed_password: TEXT [NOT NULL]
+        +c_role: TEXT [NOT NULL]
     }
 
     class t_tokens {
         +id: BIGSERIAL
-        +c_token: TEXT
-        +c_revoked: BOOLEAN
-        +c_user_id: BIGINT
+        +c_token: TEXT [NOT NULL]
+        +c_revoked: BOOLEAN [NOT NULL]
+        +c_user_id: BIGINT [NOT NULL]
     }
     
     t_users --> t_tokens: "1 -> N"
 }
 
 package "codeforces" {
-    class t_cf_users_teams_groups {
+    class t_groups {
         +id: BIGSERIAL
-        +c_name: TEXT
-        +c_description: TEXT
-        +c_user_id: BIGINT
+        +c_name: TEXT [NOT NULL]
+        +c_description: TEXT [NULL]
+        +c_user_id: BIGINT [NOT NULL]
     }
 
-    class t_cf_teams {
-        +id: BIGSERIAL
-        +c_name: TEXT
-        +c_description: TEXT
-        +c_first_user_login: TEXT
-        +c_second_user_login: TEXT
-        +c_third_user_login: TEXT
-        +c_group_id: BIGINT
+    class t_teams {
+      +id: BIGSERIAL
+      +c_name: TEXT [NOT NULL]
+      +c_description: TEXT [NULL]
+      +c_group_id: BIGINT [NOT NULL]
     }
-
-    class t_cf_users_groups {
-        +id: BIGSERIAL
-        +c_name: TEXT
-        +c_description: TEXT
-        +c_user_id: BIGINT
+    
+    class t_players {
+      +id: BIGSERIAL
+      +c_login: TEXT [UNIQUE NOT NULL]
     }
-
-    class cf_users {
-        +id: BIGSERIAL
-        +c_name: TEXT
-        +c_description: TEXT
-        +c_group_id: BIGINT
+    
+    class t_team_player {
+      +id: BIGSERIAL
+      +c_team_id: BIGINT [NOT NULL]
+      +c_player_id: BIGINT [NOT NULL]
     }
-
-    t_cf_users_teams_groups --> t_cf_teams: "1 -> N"
-    t_cf_users_groups --> cf_users: "1 -> N"
 }
 
-' Внешние ключи между схемами
-security.t_users --> codeforces.t_cf_users_teams_groups: "1 -> N"
-security.t_users --> codeforces.t_cf_users_groups: "1 -> N"
-
+security.t_users --> codeforces.t_groups: "1 -> N"
+codeforces.t_groups --> codeforces.t_teams: "1 -> N"
+codeforces.t_teams --> codeforces.t_team_player: "1 -> N"
+codeforces.t_players --> codeforces.t_team_player: "1 -> N"
 @enduml
+
 
 ```
